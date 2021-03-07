@@ -1,0 +1,47 @@
+{
+    "metadata": {
+        "main": {
+            "type": "Dataset",
+            "name": "credit default features 30-72"
+        }
+    },
+    "services": [
+        {
+            "index": "sid_for_org2",
+            "endpoint": "127.0.0.1:8091",
+            "descriptor": {
+                "template": "dt:ownership:caf831804693f76b0b988639a9cb680f45fcaeb23ee8f3b8a7b8d93e59616b3b",
+                "constraint": {
+                    "party_id": {},
+                    "inputs": {
+                        "0": {},
+                        "1": {},
+                        "2": {}
+                    },
+                    "exec_endpoints": {
+                        "0": {},
+                        "1": {},
+                        "2": {}
+                    },
+                    "model_args": {
+                        "in_dim": {},
+                        "out_dim": {},
+                        "lr": {},
+                        "batch_size": {},
+                        "split": {},
+                        "epoch": {}
+                    },
+                    "outputs": {}
+                }
+            },
+            "attributes": {
+                "price": 10,
+                "shape": [
+                    50000,
+                    42
+                ],
+                "path": "./inputs/org2_feature.csv"
+            }
+        }
+    ]
+}

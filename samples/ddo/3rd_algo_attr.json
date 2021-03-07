@@ -1,0 +1,107 @@
+{
+    "metadata": {
+        "main": {
+            "type": "Algorithm",
+            "name": "risk model"
+        }
+    },
+    "child_dts": [
+        "dt:ownership:c78707ac2aad1aa4f6813f4cab82f6b2fd44ebc62caf28a74627edb12ec1406c",
+        "dt:ownership:a6e190d28f84e8e715617a35908aae8921977230130c69f7a8fdb0a5e545398a",
+        "dt:ownership:902e27cdb564baeed96127253db09a58916984f24bff1c99203b85ee0d99d70b"
+    ],
+    "services": [
+        {
+            "index" : "sid_for_3rd",
+            "endpoint": {},
+            "attributes": {
+                "workflow_name": "distributed rosetta"
+            },
+            "descriptor": {
+                "workflow": {
+                    "dt:ownership:c78707ac2aad1aa4f6813f4cab82f6b2fd44ebc62caf28a74627edb12ec1406c": {
+                        "service": "sid_for_org1",
+                        "constraint": {
+                            "party_id": 0,
+                            "inputs": {
+                                "0": "./inputs/org1_feature.csv",
+                                "1": "./inputs/org2_feature.csv",
+                                "2": "./inputs/org1_label.csv"
+                            },
+                            "exec_endpoints": {
+                                "0": "127.0.0.1:8911",
+                                "1": "127.0.0.1:8912",
+                                "2": "127.0.0.1:8913"
+                            },
+                            "model_args": {
+                                "in_dim": 72,
+                                "out_dim": 1,
+                                "lr": 0.01,
+                                "batch_size": 256,
+                                "split": 40000,
+                                "epoch": 10001
+                            },
+                            "outputs": {
+                                "0": "./outputs/rtt_log.txt"
+                            }
+                        }
+                    },
+                    "dt:ownership:a6e190d28f84e8e715617a35908aae8921977230130c69f7a8fdb0a5e545398a": {
+                        "service": "sid_for_org2",
+                        "constraint": {
+                            "party_id": 1,
+                            "inputs": {
+                                "0": "./inputs/org1_feature.csv",
+                                "1": "./inputs/org2_feature.csv",
+                                "2": "./inputs/org1_label.csv"
+                            },
+                            "exec_endpoints": {
+                                "0": "127.0.0.1:8911",
+                                "1": "127.0.0.1:8912",
+                                "2": "127.0.0.1:8913"
+                            },
+                            "model_args": {
+                                "in_dim": 72,
+                                "out_dim": 1,
+                                "lr": 0.01,
+                                "batch_size": 256,
+                                "split": 40000,
+                                "epoch": 10001
+                            },
+                            "outputs": {
+                                "0": "./outputs/rtt_log.txt"
+                            }
+                        }
+                    },
+                    "dt:ownership:902e27cdb564baeed96127253db09a58916984f24bff1c99203b85ee0d99d70b": {
+                        "service": "sid_for_org1",
+                        "constraint": {
+                            "party_id": 2,
+                            "inputs": {
+                                "0": "./inputs/org1_feature.csv",
+                                "1": "./inputs/org2_feature.csv",
+                                "2": "./inputs/org1_label.csv"
+                            },
+                            "exec_endpoints": {
+                                "0": "127.0.0.1:8911",
+                                "1": "127.0.0.1:8912",
+                                "2": "127.0.0.1:8913"
+                            },
+                            "model_args": {
+                                "in_dim": 72,
+                                "out_dim": 1,
+                                "lr": 0.01,
+                                "batch_size": 256,
+                                "split": 40000,
+                                "epoch": 10001
+                            },
+                            "outputs": {
+                                "0": "./outputs/rtt_log.txt"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
