@@ -32,7 +32,7 @@ Bank B key:
 
 #### System Administrator
 
-The system administrator configures the federated model and its metadata in ./samples/op, and then publish the model on-chain as the trusted operator:
+The system administrator configures the federated model and its metadata in ./samples/op, and then publishs the model on-chain as the trusted operator:
 ```
 $ export PYTHONPATH=$PYTHONPATH:../dt-asset:/../dt-web3:/../DataToken:/../Compute-to-Data
 $ python client/dt-cli.py system org --name 'org1' --desc 'test_org1' --address 0x7080b17af4b29F621A5Ef3B1802B2a778Af595d0 --private_key 4472aa5d4e2efe297784a3d44d840c9652cdb7663e22dedd920958bf6edfaf7e
@@ -47,7 +47,7 @@ $ python client/dt-cli.py system op --attr_file ./samples/op/rtt_op_attr.json --
 
 #### Band A and B
 
-Banks put their private data in ./samples/data/, simulating the on-premise storage. Then, medadata need to be defined and published using asset schema, pre-configured in ./samples/ddo/. Specifically, the identifier of trusted operator is included in the metadata, declaring how data can be used:
+Banks put their private data in ./samples/data/, simulating the on-premise storage. Then, metadatas need to be defined and published using asset schema, pre-configured in ./samples/ddo/. Specifically, the identifier of trusted operator is included in the metadata, declaring how data can be used:
 ```
 $ python client/dt-cli.py asset dt --attr_file ./samples/ddo/org1_feature_attr.json --private_key 5c25a2fb9b5427bbe8b68b4ddc0655ae7621f87a147a489b1337ca166bca0173
 $ python client/dt-cli.py asset dt --attr_file ./samples/ddo/org1_label_attr.json --private_key 5c25a2fb9b5427bbe8b68b4ddc0655ae7621f87a147a489b1337ca166bca0173
@@ -67,7 +67,7 @@ $ python rtt_tracer/daemon.py
 
 #### Third-party C
 
-The third-party C define its algorithm metadata, with the computing workflow and related fulfillments inside it(applied on banks' data assets). Similarily, publish it on-chain and get composable data token:
+The third-party C defines its algorithm metadata, with the computing workflow and related fulfillments inside it, applied on banks' data assets. Similarily, publish it on-chain and get composable data token:
 ```
 python client/dt-cli.py asset cdt --attr_file ./samples/ddo/3rd_algo_attr.json --private_key 6bba7694acf53fd8d02120263e6e5aaacbab4b623f4a401ac835c9d8ec54e122
 ```
