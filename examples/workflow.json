@@ -1,0 +1,98 @@
+{
+  "task_id": "13",
+  "task_name": "example",
+  "stages": [
+    [
+      {
+        "type": "xgb-exec",
+        "inputs": [
+          "input1.csv",
+          "input2.csv",
+          "input3.csv"
+        ],
+        "script": "script0_0.py",
+        "args": {
+          "learning_rate": 0.001,
+          "batch_size": 32
+        },
+        "query_ports": {
+          "comm": "0.0.0.0:8080",
+          "self": "0.0.0.0:8081",
+          "party_A": "136.285.218.45:1111"
+        },
+        "outputs": [
+          "output0_0_1.csv",
+          "output0_0_2.csv",
+          "output0_0_3.csv"
+        ],
+        "requirements": {}
+      },
+      {
+        "type": "fedlearner-exec",
+        "inputs": [
+          "input3.csv"
+        ],
+        "script": "script0_1.py",
+        "args": {
+          "learning_rate": 0.001,
+          "batch_size": 16
+        },
+        "query_ports": {
+          "comm": "0.0.0.0:8082",
+          "self": "0.0.0.0:8083",
+          "party_A": "136.285.218.45:1112",
+          "party_B": "136.285.218.78:1112"
+        },
+        "outputs": [
+          "output0_1_0.csv"
+        ],
+        "requirements": {}
+      },
+      {
+        "type": "crypten-exec",
+        "inputs": [
+          "input2.csv",
+          "input3.csv"
+        ],
+        "script": "script0_2.py",
+        "args": {
+          "learning_rate": 0.001,
+          "batch_size": 128
+        },
+        "query_ports": {
+          "comm": "0.0.0.0:8084",
+          "self": "0.0.0.0:8085",
+          "party_A": "136.285.218.45:1111"
+        },
+        "outputs": [
+          "output0_2_1.csv"
+        ],
+        "requirements": {}
+      }
+    ],
+    [
+      {
+        "type": "xgb-exec",
+        "inputs": [
+          "input1.csv",
+          "input2.csv"
+        ],
+        "script": "script1_0.py",
+        "args": {
+          "learning_rate": 0.001,
+          "batch_size": 32
+        },
+        "query_ports": {
+          "comm": "0.0.0.0:8080",
+          "self": "0.0.0.0:8081",
+          "party_A": "136.285.218.45:1111"
+        },
+        "outputs": [
+          "script1_0_0.csv"
+        ],
+        "requirements": {
+        }
+      }
+    ]
+  ]
+}

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_dc
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: task_manager
+      POSTGRES_PASSWORD: q1w2e3r4
+    ports:
+      - "8700:5432"
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_dc
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: iwzy7071@aliyun.com
+      PGADMIN_DEFAULT_PASSWORD: q1w2e3r4
+    ports:
+      - "8701:80"
+volumes:
+  pgdata:
