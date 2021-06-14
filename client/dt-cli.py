@@ -7,19 +7,19 @@ import json
 import argparse
 import logging
 
-from dt_web3.toolkit.wallet import Wallet
-from dt_web3.toolkit.utils import hash_and_sign
-from dt_asset.storage.asset_resolve import resolve_asset
-from dt_sdk.system import SystemService
-from dt_sdk.asset import AssetService
-from dt_sdk.job import JobService
-from dt_sdk.tracer import TracerService
-from dt_sdk.config import Config
+from datatoken.web3.wallet import Wallet
+from datatoken.web3.utils import add_ethereum_prefix_and_hash_msg
+from datatoken.store.asset_resolve import resolve_asset
+from datatoken.service.system import SystemService
+from datatoken.service.asset import AssetService
+from datatoken.service.job import JobService
+from datatoken.service.tracer import TracerService
+from datatoken.config import Config
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-config = Config(filename='./config.ini')
+config = Config()
 
 system_service = SystemService(config)
 asset_service = AssetService(config)
@@ -30,7 +30,7 @@ tracer_service = TracerService(config)
 def register_org(args):
     account = Wallet(config.web3, private_key=args.private_key)
 
-    system_service.register_enterprize(
+    system_service.register_enterprise(
         args.address, args.name, args.desc, account)
     system_service.add_provider(args.address, account)
 
@@ -73,7 +73,7 @@ def mint_dt(args):
     services = dt_attr.get('services')
 
     ddo = asset_service.generate_ddo(
-        metadata, services, account.atp_address, child_dts=child_dts, verify=True)
+        metadata, services, account.address, child_dts=child_dts, verify=True)
     asset_service.publish_dt(ddo, account)
 
     logger.info(f'mint data token with dt: {ddo.dt}')
@@ -88,8 +88,9 @@ def compose_cdt(args):
         data, ddo = resolve_asset(child_dt, asset_service.dt_factory)
         endpoint = ddo.services[0].endpoint
 
-        msg = f'{account.atp_address}{cdt_ddo.dt}'
-        signature = hash_and_sign(msg, account)
+        msg = f'{account.address}{cdt_ddo.dt}'        
+        msg_hash = add_ethereum_prefix_and_hash_msg(msg)
+        signature = account.sign(msg_hash).signature.hex()
 
         data = {'algo_dt': cdt_ddo.dt, 'dt': child_dt, 'signature': signature}
 
@@ -129,8 +130,9 @@ def start_exec(args):
         _, ddo = resolve_asset(child_dt, asset_service.dt_factory)
         endpoint = ddo.services[0].endpoint
 
-        msg = f'{account.atp_address}{job_id}'
-        signature = hash_and_sign(msg, account)
+        msg = f'{account.address}{job_id}'
+        msg_hash = add_ethereum_prefix_and_hash_msg(msg)
+        signature = account.sign(msg_hash).signature.hex()
 
         data = {'job_id': job_id, 'algo_dt': cdt_ddo.dt,
                 'dt': child_dt, 'signature': signature}
