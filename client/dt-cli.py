@@ -162,8 +162,10 @@ def start_exec(args):
 
 def dfs_lifecycle(args):
 
-    asset_paths = tracer_service.trace_dt_lifecycle(args.prefix_path)
-    tracer_service.tracer_print(asset_paths)
+    found = tracer_service.trace_dt_lifecycle(args.prefix_path, prefix=[])    
+    tree = tracer_service.tree_format(found)
+    if tree:
+        tracer_service.print_tree(tree, indent=[], final_node=True)
 
     logger.info(f'print asset sharing lifecycle for dt: {args.prefix_path}')
 
@@ -237,7 +239,7 @@ if __name__ == '__main__':
         help='tracer sub-command help')
 
     task_parser = tracer_sub_parsers.add_parser('dfs', help='dfs help')
-    task_parser.add_argument('--prefix_path', required=True, nargs='+')
+    task_parser.add_argument('--prefix_path', type=str, required=True)
     task_parser.add_argument('--detailed', type=str, required=False)
 
     task_parser.set_defaults(func=dfs_lifecycle)
