@@ -1,5 +1,5 @@
 """Config module."""
-# Copyright 2021 The rtt-tracer Authors
+# Copyright 2021 The Compute-to-Data Authors
 # SPDX-License-Identifier: LGPL-2.1-only
 
 import os
@@ -31,5 +31,11 @@ class Config(DTConfig):
         return self.get(self._provider_section, 'query_port')
 
     @property
+    def db_name(self):
+        return self.get(self._provider_section, 'db_name')
+
+    @property
     def assets_path(self):
         return json.loads(self.get(self._provider_section, 'assets_path'))
+
+    

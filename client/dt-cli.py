@@ -78,6 +78,18 @@ def mint_dt(args):
 
     logger.info(f'mint data token with dt: {ddo.dt}')
 
+    if not ddo.is_cdt:
+        endpoint = ddo.services[0].endpoint
+
+        data = {'store_path': args.store_path, 'dt': ddo.dt,
+                'metadata': ddo.to_dict()}
+
+        response = requests.post(f"http://{endpoint}/insertDtStore", data=json.dumps(data),
+                                 headers={'content-type': 'application/json'}, timeout=5)
+
+        if response.status_code != 200:
+            raise Exception(response.content.decode('utf-8'))
+
     return ddo, account
 
 
@@ -88,7 +100,7 @@ def compose_cdt(args):
         data, ddo = resolve_asset(child_dt, asset_service.dt_factory)
         endpoint = ddo.services[0].endpoint
 
-        msg = f'{account.address}{cdt_ddo.dt}'        
+        msg = f'{account.address}{cdt_ddo.dt}'
         msg_hash = add_ethereum_prefix_and_hash_msg(msg)
         signature = account.sign(msg_hash).signature.hex()
 
@@ -188,6 +200,7 @@ if __name__ == '__main__':
 
     dt_parser = asset_sub_parsers.add_parser('dt', help='data token help')
     dt_parser.add_argument('--attr_file', type=str, required=True)
+    dt_parser.add_argument('--store_path', type=str, required=False)
     dt_parser.add_argument('--private_key', type=str, required=True)
 
     dt_parser.set_defaults(func=mint_dt)

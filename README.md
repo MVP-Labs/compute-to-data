@@ -16,4 +16,4 @@ Consider the joint risk management scenario, a third-party fintech company C pro
 
 ### run tests
 
-We provide [samples](./samples) for testing. Required config files, datasets, asset metadatas and federated models are all included. For each on-premise computation, a seperate folder will be created for storing running resources and logs. Each job will have a corresponding folder like `tests/job_id/`, in which datasets, models and parameters will be fetched to the disk automatically. This simply simulates a private computation sandbox, see the [running demo](./demo.md).
+We provide [dt-examples](https://github.com/ownership-labs/dt-examples) for testing. Required config files, datasets, asset metadatas and federated models are all included. For each on-premise computation, a seperate folder will be created for storing running resources and logs. Each job will have a corresponding folder like `tests/job_id/`, in which datasets, models and parameters will be fetched to the disk automatically. This simply simulates a private computation sandbox.
